@@ -50,10 +50,35 @@ lower.id = 'lower'
 lower.setAttribute('style', 'display: flex; justify-content: space-between; flex: 9');
 calculator.appendChild(lower);
 
+
+
+
 const digits = document.createElement('div');
 digits.id = 'digits';
 digits.setAttribute('style', 'display: flex; flex-wrap: wrap;');
 lower.appendChild(digits);
+
+const rowOne = document.createElement('div');
+rowOne.classList.add('row');
+rowOne.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+digits.appendChild(rowOne);
+
+const rowTwo = document.createElement('div');
+rowTwo.classList.add('row');
+rowTwo.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+digits.appendChild(rowTwo);
+
+const rowThree = document.createElement('div');
+rowThree.classList.add('row');
+rowThree.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+digits.appendChild(rowThree);
+
+const rowFour = document.createElement('div');
+rowThree.classList.add('row');
+rowThree.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+digits.appendChild(rowThree);
+
+
 
 const operators = document.createElement('div');
 operators.id = 'operators';
@@ -66,62 +91,59 @@ lower.appendChild(operators);
 const one = document.createElement('button');
 one.classList.add('button');
 one.textContent = '1';
-one.setAttribute('style', 'text-align: center;');
-digits.appendChild(one);
+rowOne.appendChild(one);
 
 const two = document.createElement('button');
 two.classList.add('button');
 two.textContent = '2';
-two.setAttribute('style', 'text-align: center;');
-digits.appendChild(two);
+rowOne.appendChild(two);
 
 const three = document.createElement('button');
 three.classList.add('button');
 three.textContent = '3';
-three.setAttribute('style', 'text-align: center;');
-digits.appendChild(three);
+rowOne.appendChild(three);
 
 const four = document.createElement('button');
 four.classList.add('button');
 four.textContent = '4';
-four.setAttribute('style', 'text-align: center;');
-digits.appendChild(four);
+rowTwo.appendChild(four);
 
 const five = document.createElement('button');
 five.classList.add('button');
 five.textContent = '5';
-five.setAttribute('style', 'text-align: center;');
-digits.appendChild(five);
+rowTwo.appendChild(five);
 
 const six = document.createElement('button');
 six.classList.add('button');
 six.textContent = '6';
-six.setAttribute('style', 'text-align: center;');
-digits.appendChild(six);
+rowTwo.appendChild(six);
 
 const seven = document.createElement('button');
 seven.classList.add('button');
 seven.textContent = '7';
-seven.setAttribute('style', 'text-align: center;');
-digits.appendChild(seven);
+rowThree.appendChild(seven);
 
 const eight = document.createElement('button');
 eight.classList.add('button');
 eight.textContent = '8';
-eight.setAttribute('style', 'text-align: center;');
-digits.appendChild(eight);
+rowThree.appendChild(eight);
 
 const nine = document.createElement('button');
 nine.classList.add('button');
 nine.textContent = '9';
-nine.setAttribute('style', 'text-align: center;');
-digits.appendChild(nine);
+rowThree.appendChild(nine);
 
 const zero = document.createElement('button');
 zero.classList.add('button');
 zero.textContent = '0';
-zero.setAttribute('style', 'text-align: center;');
-digits.appendChild(zero);
+rowFour.appendChild(zero);
+
+const allDigits = document.querySelectorAll('.button');
+console.log(allDigits);
+for (digit of allDigits) {
+    digit.setAttribute('style', 'width: 60px; height: 40px; text-align: center;');
+}
+
 
 
 
