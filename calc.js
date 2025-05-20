@@ -36,13 +36,13 @@ body.setAttribute('style', 'display: flex; justify-content: center; align-items:
 
 const calculator = document.createElement('div');
 calculator.id = 'calculator';
-calculator.setAttribute('style', 'width: 400px; height: 600px; display: flex; justify-content: space-between; flex-direction: column;');
+calculator.setAttribute('style', 'background-color:rgb(141, 141, 141); gap: 20px; padding: 40px; border: 3px solid black; width: 400px; height: 600px; display: flex; justify-content: space-between; flex-direction: column;');
 body.appendChild(calculator);
 
 const display = document.createElement('div');
-display.textContent = "Display";
+display.textContent = "1 + 2";
 display.id = 'display';
-display.setAttribute('style', 'display: flex; flex: 1');
+display.setAttribute('style', 'font-family: Courier New; font-weight: bold; font-size: 24px; padding: 10px; padding-right: 50px; border: 3px solid black; border-radius: 15px; background-color:rgb(77, 101, 74); color: white; display: flex; justify-content: right; align-items: center; flex: 1');
 calculator.appendChild(display);
 
 const lower = document.createElement('div');
@@ -55,34 +55,34 @@ calculator.appendChild(lower);
 
 const digits = document.createElement('div');
 digits.id = 'digits';
-digits.setAttribute('style', 'display: flex; flex-wrap: wrap;');
+digits.setAttribute('style', 'gap: 45px; display: flex; justify-content: flex-end; flex-direction: column; flex-wrap: wrap;');
 lower.appendChild(digits);
 
 const rowOne = document.createElement('div');
 rowOne.classList.add('row');
-rowOne.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+rowOne.setAttribute('style', 'gap: 10px; display: flex; justify-content: space-between;')
 digits.appendChild(rowOne);
 
 const rowTwo = document.createElement('div');
 rowTwo.classList.add('row');
-rowTwo.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+rowTwo.setAttribute('style', 'gap: 10px; display: flex; justify-content: space-between;')
 digits.appendChild(rowTwo);
 
 const rowThree = document.createElement('div');
 rowThree.classList.add('row');
-rowThree.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
+rowThree.setAttribute('style', 'gap: 10px; display: flex; justify-content: space-between;')
 digits.appendChild(rowThree);
 
 const rowFour = document.createElement('div');
-rowThree.classList.add('row');
-rowThree.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between;')
-digits.appendChild(rowThree);
+rowFour.classList.add('row');
+rowFour.setAttribute('style', 'display: flex; justify-content: center;')
+digits.appendChild(rowFour);
 
 
 
 const operators = document.createElement('div');
 operators.id = 'operators';
-operators.setAttribute('style', 'display: flex; flex-direction: column; justify-content: space-between; align-items: center;');
+operators.setAttribute('style', 'padding-top: 120px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;');
 lower.appendChild(operators);
 
 
@@ -140,8 +140,8 @@ rowFour.appendChild(zero);
 
 const allDigits = document.querySelectorAll('.button');
 console.log(allDigits);
-for (digit of allDigits) {
-    digit.setAttribute('style', 'width: 60px; height: 40px; text-align: center;');
+for (let digit of allDigits) {
+    digit.setAttribute('style', 'background-color:rgb(91, 87, 216); color: white; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
 }
 
 
@@ -151,34 +151,35 @@ for (digit of allDigits) {
 const plus = document.createElement('button');
 plus.textContent = '+';
 plus.classList.add('oper');
-plus.setAttribute('style', 'text-align: center;');
 operators.appendChild(plus);
 
 const minus = document.createElement('button');
 minus.textContent = '-';
 minus.classList.add('oper');
-minus.setAttribute('style', 'text-align: center;');
 operators.appendChild(minus);
 
 const times = document.createElement('button');
 times.textContent = '✕';
 times.classList.add('oper');
-times.setAttribute('style', 'text-align: center;');
 operators.appendChild(times);
 
 const dvde = document.createElement('button');
 dvde.textContent = '/';
 dvde.classList.add('oper');
-dvde.setAttribute('style', 'text-align: center;');
 operators.appendChild(dvde);
 
 const equals = document.createElement('button');
 equals.textContent = '=';
 equals.classList.add('oper');
-equals.setAttribute('style', 'text-align: center;');
 operators.appendChild(equals);
 
+const operButtons = document.querySelectorAll('.oper');
+for (let b of operButtons) {
+    b.setAttribute('style', 'background-color:rgb(174, 99, 78); color: black; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
 
+}
+
+equals.style.backgroundColor = 'rgb(214, 190, 33)';
 
 
 
