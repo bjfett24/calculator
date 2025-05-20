@@ -1,5 +1,9 @@
+let numA;
+let numB;
+let oper;
+
 function add(a, b) {
-    return a + b;
+    return +a + +b;
 }
 
 function subtract(a, b) {
@@ -36,13 +40,13 @@ body.setAttribute('style', 'display: flex; justify-content: center; align-items:
 
 const calculator = document.createElement('div');
 calculator.id = 'calculator';
-calculator.setAttribute('style', 'background-color:rgb(141, 141, 141); gap: 20px; padding: 40px; border: 3px solid black; width: 400px; height: 600px; display: flex; justify-content: space-between; flex-direction: column;');
+calculator.setAttribute('style', 'background-color:rgb(141, 141, 141); gap: 20px; padding: 40px; border: 3px solid black; width: 400px; height: auto; display: flex; justify-content: space-between; flex-direction: column;');
 body.appendChild(calculator);
 
 const display = document.createElement('div');
-display.textContent = "1 + 2";
+display.textContent = ' ';
 display.id = 'display';
-display.setAttribute('style', 'font-family: Courier New; font-weight: bold; font-size: 24px; padding: 10px; padding-right: 50px; border: 3px solid black; border-radius: 15px; background-color:rgb(77, 101, 74); color: white; display: flex; justify-content: right; align-items: center; flex: 1');
+display.setAttribute('style', 'font-family: Courier New; font-weight: bold; font-size: 24px; padding: 20px; padding-right: 50px; border: 3px solid black; border-radius: 15px; background-color:rgb(77, 101, 74); color: white; display: flex; justify-content: right; align-items: center; flex: 1');
 calculator.appendChild(display);
 
 const lower = document.createElement('div');
@@ -142,11 +146,24 @@ const allDigits = document.querySelectorAll('.button');
 console.log(allDigits);
 for (let digit of allDigits) {
     digit.setAttribute('style', 'background-color:rgb(91, 87, 216); color: white; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
+    const number = digit.textContent
+    digit.addEventListener('click', () => {
+        if (display.textContent === ' ') {
+            popNumA(number);
+        } else {
+            popNumB(number);
+        }
+    })
 }
 
 
 
 
+
+const clear = document.createElement('button');
+clear.textContent = 'AC';
+clear.classList.add('oper');
+operators.appendChild(clear);
 
 const plus = document.createElement('button');
 plus.textContent = '+';
@@ -176,13 +193,54 @@ operators.appendChild(equals);
 const operButtons = document.querySelectorAll('.oper');
 for (let b of operButtons) {
     b.setAttribute('style', 'background-color:rgb(174, 99, 78); color: black; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
-
+    const symbol = b.textContent;
+    if (b.textContent != '=') {
+        b.addEventListener('click', popOp.bind(null, symbol));
+    }
 }
 
 equals.style.backgroundColor = 'rgb(214, 190, 33)';
+equals.addEventListener('click', () => {
+    display.textContent = solution(numA, numB, oper);
+})
+
+clear.style.backgroundColor = 'rgb(84, 179, 77)';
+clear.addEventListener('click', () => display.textContent = ' ')
+
+
+function popNumA(num) {
+    display.textContent = num;
+    numA = num;
+    
+}
+
+function popOp(op) {
+    display.textContent += ' ' + op;
+    oper = op;
+    
+}
+
+function popNumB(num) {
+    display.textContent += ' ' + num;
+    numB = num;
+    
+}
+
+function solution(a, b, oper) {
+    switch (oper) {
+        case '+':
+            return add(a, b);
+        case '-':
+            return subtract(a, b);
+        case '✕':
+            return multiply(a, b);
+        case '/':
+            return divide(a, b);
+    }
+    display.textContent = sol;
+
+}
 
 
 
-let numA;
-let numB;
-let oper;
+
