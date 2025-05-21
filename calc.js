@@ -18,9 +18,12 @@ function multiply(a, b) {
 function divide(a, b) {
     if (+b === 0) {
         return undefined
+    } else if ((a / b) % 1 != 0) {
+        return (a / b).toFixed(2);
+        
     } else {
         return a / b;
-    }
+    }   
 }
 
 function operate(a, b, o) {
@@ -148,7 +151,7 @@ zero.textContent = '0';
 rowFour.appendChild(zero);
 
 const allDigits = document.querySelectorAll('.button');
-ops = '+-✕/'
+const ops = '+-✕/'
 for (let digit of allDigits) {
     digit.setAttribute('style', 'background-color:rgb(91, 87, 216); color: white; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
     const number = digit.textContent
@@ -158,10 +161,11 @@ for (let digit of allDigits) {
         } else if (display.textContent.split('').filter(char => ops.includes(char)).length > 0) {
             popNumB(number);
         } else if (equalsClicked === true) {
-            display.textContent = ' '
+            display.textContent = ' ';
             numA = 0;
-            numB = 0;
+            numB = 0
             oper = undefined;
+            equalsClicked = false;
             popNumA(number);
         } else {
             popNumA(number);
@@ -210,7 +214,11 @@ for (let b of operButtons) {
     if (b.textContent != '=' && b.textContent != 'AC') {
         b.addEventListener('click', () => {
             if (display.textContent.split('').filter(char => ops.includes(char)).length > 0) {
-                multSolution(numA, numB, oper);
+                multSolution(numA, numB, b.textContent);
+            } else if (equalsClicked === true) {
+                    numA = display.textContent
+                    numB = 0;
+                    popOp(symbol);
             } else {
                 popOp(symbol);
             }
@@ -234,6 +242,7 @@ clear.addEventListener('click', () => {
     display.textContent = ' '
     numA = 0
     numB = 0
+    equalsClicked = false;
 });
 
 
@@ -253,6 +262,7 @@ function popOp(op) {
 }
 
 function popNumB(num) {
+    equalsClicked = false;
     if (numB === 0) {
         numB += +num;
     } else {
@@ -278,11 +288,9 @@ function solution(a, b, oper) {
 
 function multSolution(a, b, x) {
     display.textContent = ' ';
-    numA = solution(a, b, x);
+    numA = solution(a, b, oper);
     numB = 0
     oper = x;
     display.textContent = numA + ' ' + oper + ' '
 
 }
-
-
