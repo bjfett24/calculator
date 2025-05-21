@@ -1,6 +1,7 @@
-let numA;
-let numB;
+let numA = 0;
+let numB = 0;
 let oper;
+let equalsClicked = false;
 
 function add(a, b) {
     return +a + +b;
@@ -15,7 +16,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (+b === 0) {
+        return undefined
+    } else {
+        return a / b;
+    }
 }
 
 function operate(a, b, o) {
@@ -143,15 +148,23 @@ zero.textContent = '0';
 rowFour.appendChild(zero);
 
 const allDigits = document.querySelectorAll('.button');
-console.log(allDigits);
+ops = '+-✕/'
 for (let digit of allDigits) {
     digit.setAttribute('style', 'background-color:rgb(91, 87, 216); color: white; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
     const number = digit.textContent
     digit.addEventListener('click', () => {
-        if (display.textContent === ' ') {
+        if (ops.includes(display.textContent.split('').at(-2))) {
+            popNumB(number);
+        } else if (display.textContent.split('').filter(char => ops.includes(char)).length > 0) {
+            popNumB(number);
+        } else if (equalsClicked === true) {
+            display.textContent = ' '
+            numA = 0;
+            numB = 0;
+            oper = undefined;
             popNumA(number);
         } else {
-            popNumB(number);
+            popNumA(number);
         }
     })
 }
@@ -194,35 +207,58 @@ const operButtons = document.querySelectorAll('.oper');
 for (let b of operButtons) {
     b.setAttribute('style', 'background-color:rgb(174, 99, 78); color: black; border: 2px solid black; border-radius: 15px; font-size: 36px; width: 90px; height: 60px; text-align: center;');
     const symbol = b.textContent;
-    if (b.textContent != '=') {
-        b.addEventListener('click', popOp.bind(null, symbol));
+    if (b.textContent != '=' && b.textContent != 'AC') {
+        b.addEventListener('click', () => {
+            if (display.textContent.split('').filter(char => ops.includes(char)).length > 0) {
+                multSolution(numA, numB, oper);
+            } else {
+                popOp(symbol);
+            }
+        });
+            
+
     }
 }
-
 equals.style.backgroundColor = 'rgb(214, 190, 33)';
 equals.addEventListener('click', () => {
-    display.textContent = solution(numA, numB, oper);
+    equalsClicked = true;
+    if (solution(numA, numB, oper) === undefined) {
+        display.textContent = 'No dividing by 0!';
+    } else {
+        display.textContent = solution(numA, numB, oper);
+    }
 })
 
 clear.style.backgroundColor = 'rgb(84, 179, 77)';
-clear.addEventListener('click', () => display.textContent = ' ')
+clear.addEventListener('click', () => {
+    display.textContent = ' '
+    numA = 0
+    numB = 0
+});
 
 
 function popNumA(num) {
-    display.textContent = num;
-    numA = num;
-    
+    if (numA === 0) {
+        numA += +num;
+    } else {
+        numA = +(numA * 10) + +num
+    }
+    display.textContent = numA
 }
 
 function popOp(op) {
-    display.textContent += ' ' + op;
+    display.textContent += ' ' + op + ' ';
     oper = op;
     
 }
 
 function popNumB(num) {
-    display.textContent += ' ' + num;
-    numB = num;
+    if (numB === 0) {
+        numB += +num;
+    } else {
+        numB = (numB * 10) + +num
+    }
+    display.textContent = display.textContent.slice(0, display.textContent.indexOf(oper) + 2) + numB
     
 }
 
@@ -237,10 +273,16 @@ function solution(a, b, oper) {
         case '/':
             return divide(a, b);
     }
-    display.textContent = sol;
 
 }
 
+function multSolution(a, b, x) {
+    display.textContent = ' ';
+    numA = solution(a, b, x);
+    numB = 0
+    oper = x;
+    display.textContent = numA + ' ' + oper + ' '
 
+}
 
 
